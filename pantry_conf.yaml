@@ -1,0 +1,7 @@
+---
+db:
+  type: postgres
+  host: localhost
+  name: pantry
+  user: pantry
+  password: qwerty
