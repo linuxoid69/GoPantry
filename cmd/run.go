@@ -1,12 +1,12 @@
 package cmd
 
 import (
-	"fmt"
 	"log/slog"
 
 	"github.com/linuxoid69/go-pantry/internal/config"
 	"github.com/linuxoid69/go-pantry/internal/dbase"
 	"github.com/linuxoid69/go-pantry/internal/logger"
+	"github.com/linuxoid69/go-pantry/internal/server"
 	"github.com/linuxoid69/go-pantry/migrations"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -20,7 +20,6 @@ var runCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		config.LoadConfig("pantry_conf.yaml")
 
-		fmt.Println("Start server")
 		db := dbase.NewDb(
 			viper.GetString("db.type"),
 			viper.GetString("db.host"),
@@ -31,6 +30,12 @@ var runCmd = &cobra.Command{
 
 		if err := db.RunMigration(migrations.Dir); err != nil {
 			slog.Error("migrations error", "error", err)
+		}
+
+		server := server.NewServer(viper.GetInt("server.port"), viper.GetString("server.listen_addr"))
+
+		if err := server.Run(); err != nil {
+			panic(err)
 		}
 	},
 }
