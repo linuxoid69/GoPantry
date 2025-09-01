@@ -48,7 +48,7 @@ CREATE TABLE movies.genres (
 
 -- Таблица связи жанров с фильмами
 CREATE TABLE movies.movie_genres (
-    movie_id INTEGER REFERENCES movies.movies(id),
-    genre_id INTEGER REFERENCES movies.genres(id),
+    movie_id INTEGER REFERENCES movies.movies(id) ON DELETE CASCADE,
+    genre_id INTEGER REFERENCES movies.genres(id) ON DELETE CASCADE,
     PRIMARY KEY (movie_id, genre_id)
 );
