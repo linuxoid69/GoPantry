@@ -18,10 +18,10 @@ type DB struct {
 
 func NewDb(typeDB, host, name, user, password string) *DB {
 	return &DB{
-		TypeDB: typeDB,
-		Host:   host,
-        User: user,
-        Password: password,
+		TypeDB:   typeDB,
+		Host:     host,
+		User:     user,
+		Password: password,
 	}
 }
 
