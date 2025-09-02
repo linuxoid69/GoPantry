@@ -25,7 +25,7 @@ func (s *Server) Run() error {
 			"message": "Hello, world!",
 		})
 	})
-	r.POST("/api/movies/add_movie")
+	r.POST("/api/movies/add", HandlerAddMovie)
 
 	return r.Run(s.ListenAddr + ":" + strconv.Itoa(s.Port))
 }
