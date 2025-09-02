@@ -14,19 +14,21 @@ import (
 func (db *DB) RunMigration(fs embed.FS) error {
 	d, err := iofs.New(fs, ".")
 	if err != nil {
-		return fmt.Errorf("migration")
+		return fmt.Errorf("can't read migration from iofs: %w", err)
 	}
 
-	connectionString := db.GetConnectionString()
-
-	m, err := migrate.NewWithSourceInstance("iofs", d, connectionString)
+	m, err := migrate.NewWithSourceInstance("iofs", d, db.GetConnectionString())
 	if err != nil {
-		return fmt.Errorf("migration read from iofs %w", err)
+		return fmt.Errorf("can't read migration from iofs: %w", err)
 	}
 	defer m.Close()
 
 	if err = m.Up(); !errors.Is(err, migrate.ErrNoChange) {
-		return fmt.Errorf("migration up %w", err)
+		if err != nil {
+			return fmt.Errorf("can't apply migration: %w", err)
+		}
+
+		return nil
 	}
 
 	return nil
