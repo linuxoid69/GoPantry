@@ -1,9 +1,10 @@
 package server
 
-type Movies []struct {
-	Title       string `json:"title"`
-	IsSeries    bool   `json:"is_series"`
-	Rating      int    `json:"rating"`
-	IsWatched   bool   `json:"is_watched"`
-	ReleaseYear int    `json:"release_year"`
+type Movie struct {
+	Genres      []string `json:"genres"`
+    Title       string   `json:"title"`
+	ReleaseYear int      `json:"release_year"`
+	Rating      int      `json:"rating"`
+	IsSeries    bool     `json:"is_series"`
+	IsWatched   bool     `json:"is_watched"`
 }

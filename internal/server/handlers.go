@@ -5,9 +5,9 @@ import (
 )
 
 func HandlerAddMovie(ctx *gin.Context) {
-    var movies Movies
+    var movie Movie
 
-    if err := ctx.BindJSON(&movies); err != nil {
+    if err := ctx.BindJSON(&movie); err != nil {
         ctx.JSON(400, gin.H{"error": err.Error()})
         return
     }
